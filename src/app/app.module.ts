@@ -4,15 +4,42 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import {
+  AngularFireStorage,
+  AngularFireStorageModule,
+} from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import {
+  AngularFireAuth,
+  AngularFireAuthModule,
+} from '@angular/fire/compat/auth';
+
+import { provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { initializeApp } from 'firebase/app';
+import { environment } from '@src/environments/environment';
+
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    provideFirebaseApp(() =>
+      initializeApp(environment.firebase.firebaseConfig)
+    ),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
+    provideAuth(() => getAuth()),
+
+    AngularFireModule.initializeApp(environment.firebase.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
