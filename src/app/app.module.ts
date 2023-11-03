@@ -27,14 +27,12 @@ import { environment } from '@src/environments/environment';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    provideFirebaseApp(() =>
-      initializeApp(environment.firebase.firebaseConfig)
-    ),
+    provideFirebaseApp(() => initializeApp(environment.firebase.config)),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     provideAuth(() => getAuth()),
 
-    AngularFireModule.initializeApp(environment.firebase.firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase.config),
     AngularFireStorageModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
